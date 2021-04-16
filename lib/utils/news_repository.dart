@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:connectivity/connectivity.dart';
 import 'package:google_login/models/new.dart';
 import 'package:google_login/utils/secrets.dart';
 import 'package:http/http.dart';
@@ -11,6 +12,16 @@ class NewsRepository {
   static final NewsRepository _NewsRepository = NewsRepository._internal();
   factory NewsRepository() {
     return _NewsRepository;
+  }
+
+  Future<bool> check() async {
+    var connectivityResult = await (Connectivity().checkConnectivity());
+    if (connectivityResult == ConnectivityResult.mobile) {
+      return true;
+    } else if (connectivityResult == ConnectivityResult.wifi) {
+      return true;
+    }
+    return false;
   }
 
   NewsRepository._internal();
@@ -42,19 +53,26 @@ class NewsRepository {
         },
       );
     }
-    // TODO: completar request y deserializacion
-    try {
-      final response = await get(_uri);
-      if (response.statusCode == HttpStatus.ok) {
-        List<dynamic> data = jsonDecode(response.body)["articles"];
-        _noticiasList =
-            ((data).map((element) => New.fromJson(element))).toList();
-        return _noticiasList;
-      }
-      return [];
-    } catch (e) {
-      //arroje un error
-      throw "Ha ocurrido un error: $e";
-    }
+    check().then(
+      (intenet) async {
+        if (!(intenet != null && intenet)) {
+          throw "No interent";
+        } else {
+          try {
+            final response = await get(_uri);
+            if (response.statusCode == HttpStatus.ok) {
+              List<dynamic> data = jsonDecode(response.body)["articles"];
+              _noticiasList =
+                  ((data).map((element) => New.fromJson(element))).toList();
+              return _noticiasList;
+            }
+            return [];
+          } catch (e) {
+            //arroje un error
+            throw "Ha ocurrido un error: $e";
+          }
+        }
+      },
+    );
   }
 }

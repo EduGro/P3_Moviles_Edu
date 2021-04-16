@@ -28,7 +28,7 @@ dependencies:
   share: ^2.0.1
   extended_image: ^4.0.1
   hive_flutter: ^1.0.0
-  feature_discovery: ^0.14.0
+
   
 
 

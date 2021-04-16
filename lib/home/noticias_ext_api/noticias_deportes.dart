@@ -1,5 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:extended_image/extended_image.dart';
 import 'package:flutter/material.dart';
 import 'package:google_login/models/new.dart';
 import 'package:google_login/utils/news_repository.dart';
@@ -16,8 +14,6 @@ class NoticiasDeportes extends StatefulWidget {
 
 class _NoticiasDeportesState extends State<NoticiasDeportes> {
   Box<String> _box;
-
-  get times => this.times;
 
   @override
   void initState() {
@@ -99,7 +95,8 @@ class _NoticiasDeportesState extends State<NoticiasDeportes> {
             child: FutureBuilder(
               future: NewsRepository().getAvailableNoticias(query),
               builder: (context, snapshot) {
-                if (snapshot.hasError) {
+                if (snapshot.hasError || !snapshot.hasData) {
+                  var times = 3;
                   return ListView.builder(
                     itemCount: times,
                     itemBuilder: (context, i) {
