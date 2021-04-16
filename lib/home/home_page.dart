@@ -6,7 +6,6 @@ import 'package:google_login/bloc/auth_bloc.dart';
 import 'package:google_login/home/noticias_firebase/mis_noticias.dart';
 import 'noticias_ext_api/noticias_deportes.dart';
 import 'package:google_login/home/noticias_firebase/pantalla_tres.dart';
-import 'package:flutter_search_bar/flutter_search_bar.dart';
 
 class HomePage extends StatefulWidget {
   HomePage({Key key}) : super(key: key);

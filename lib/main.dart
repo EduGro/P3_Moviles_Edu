@@ -5,11 +5,17 @@ import 'package:google_login/bloc/auth_bloc.dart';
 import 'package:google_login/home/home_page.dart';
 import 'package:google_login/login/login_page.dart';
 import 'package:google_login/splash_screen.dart';
+import 'package:hive/hive.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 
 void main() async {
   // inicializar firebase
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
+  //Abrir box donde guardaremos y leeremos los datos
+  await Hive.initFlutter();
+  await Hive.openBox<String>("news_hive");
+  runApp(MyApp());
 
   runApp(
     BlocProvider(

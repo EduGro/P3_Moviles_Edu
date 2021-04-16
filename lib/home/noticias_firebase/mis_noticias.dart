@@ -12,6 +12,7 @@ class MisNoticias extends StatefulWidget {
 }
 
 class _MisNoticiasState extends State<MisNoticias> {
+  MyNewsBloc _bloc;
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
@@ -38,16 +39,24 @@ class _MisNoticiasState extends State<MisNoticias> {
         },
         builder: (context, state) {
           if (state is LoadedNewsState) {
-            return ListView.builder(
-              itemCount: state.noticiasList.length,
-              itemBuilder: (BuildContext context, int index) {
-                return ItemNoticia(noticia: state.noticiasList[index]);
-              },
+            return RefreshIndicator(
+              onRefresh: _refresh,
+              child: ListView.builder(
+                itemCount: state.noticiasList.length,
+                itemBuilder: (BuildContext context, int index) {
+                  return ItemNoticia(noticia: state.noticiasList[index]);
+                },
+              ),
             );
           }
           return Center(child: CircularProgressIndicator());
         },
       ),
     );
+  }
+
+  Future<void> _refresh() async {
+    _bloc.add(RequestAllNewsEvent());
+    return 'success';
   }
 }

@@ -15,7 +15,6 @@ class NewsRepository {
 
   NewsRepository._internal();
   Future<List<New>> getAvailableNoticias(String query) async {
-    // TODO: utilizar variable q="$query" para buscar noticias en especifico
     // https://newsapi.org/v2/top-headlines?country=mx&q=futbol&category=sports&apiKey&apiKey=laAPIkey
     // crear modelos antes
 
@@ -43,7 +42,6 @@ class NewsRepository {
         },
       );
     }
-    print(_uri);
     // TODO: completar request y deserializacion
     try {
       final response = await get(_uri);
