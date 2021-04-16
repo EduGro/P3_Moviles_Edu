@@ -15,7 +15,7 @@ class _MisNoticiasState extends State<MisNoticias> {
   MyNewsBloc _bloc;
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
+    return BlocProvider<MyNewsBloc>(
       create: (context) => MyNewsBloc()..add(RequestAllNewsEvent()),
       child: BlocConsumer<MyNewsBloc, MyNewsState>(
         listener: (context, state) {
@@ -40,7 +40,7 @@ class _MisNoticiasState extends State<MisNoticias> {
         builder: (context, state) {
           if (state is LoadedNewsState) {
             return RefreshIndicator(
-              onRefresh: _refresh,
+              onRefresh: () => _refresh(_bloc, context),
               child: ListView.builder(
                 itemCount: state.noticiasList.length,
                 itemBuilder: (BuildContext context, int index) {
@@ -55,8 +55,9 @@ class _MisNoticiasState extends State<MisNoticias> {
     );
   }
 
-  Future<void> _refresh() async {
+  Future<void> _refresh(MyNewsBloc _bloc, context) async {
+    _bloc = BlocProvider.of<MyNewsBloc>(context);
     _bloc.add(RequestAllNewsEvent());
-    return 'success';
+    return 'succes';
   }
 }

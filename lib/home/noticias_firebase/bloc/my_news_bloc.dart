@@ -40,7 +40,7 @@ class MyNewsBloc extends Bloc<MyNewsEvent, MyNewsState> {
       if (imageUrl != null) {
         yield LoadingState();
         await _saveNoticias(event.noticia.copyWith(urlToImage: imageUrl));
-        // yield LoadedNewsState(noticiasList: await _getNoticias() ?? []);
+        yield LoadedNewsState(noticiasList: await _getNoticias() ?? []);
         yield SavedNewState();
       } else {
         yield ErrorMessageState(errorMsg: "No se pudo guardar la imagen");
