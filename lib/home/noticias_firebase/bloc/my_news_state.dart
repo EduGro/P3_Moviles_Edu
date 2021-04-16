@@ -9,7 +9,7 @@ abstract class MyNewsState extends Equatable {
 
 class MyNewsInitial extends MyNewsState {}
 
-class LoadingState extends MyNewsState {}
+class LoadingState2 extends MyNewsState {}
 
 class LoadedNewsState extends MyNewsState {
   final List<New> noticiasList;
@@ -19,22 +19,10 @@ class LoadedNewsState extends MyNewsState {
   List<Object> get props => [noticiasList];
 }
 
-class PickedImageState extends MyNewsState {
-  final File image;
-
-  PickedImageState({@required this.image});
-  @override
-  List<Object> get props => [image];
-}
-
-class SavedNewState extends MyNewsState {
-  List<Object> get props => [];
-}
-
-class ErrorMessageState extends MyNewsState {
+class ErrorMessageState2 extends MyNewsState {
   final String errorMsg;
 
-  ErrorMessageState({@required this.errorMsg});
+  ErrorMessageState2({@required this.errorMsg});
   @override
   List<Object> get props => [errorMsg];
 }

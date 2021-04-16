@@ -11,16 +11,3 @@ class RequestAllNewsEvent extends MyNewsEvent {
   @override
   List<Object> get props => [];
 }
-
-class SaveNewElementEvent extends MyNewsEvent {
-  final New noticia;
-
-  SaveNewElementEvent({@required this.noticia});
-  @override
-  List<Object> get props => [noticia];
-}
-
-class PickImageEvent extends MyNewsEvent {
-  @override
-  List<Object> get props => [];
-}
