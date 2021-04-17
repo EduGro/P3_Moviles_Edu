@@ -95,7 +95,7 @@ class _NoticiasDeportesState extends State<NoticiasDeportes> {
             child: FutureBuilder(
               future: NewsRepository().getAvailableNoticias(query),
               builder: (context, snapshot) {
-                if (snapshot.hasError || !snapshot.hasData) {
+                if (snapshot.hasError) {
                   var times = 3;
                   return ListView.builder(
                     itemCount: times,
